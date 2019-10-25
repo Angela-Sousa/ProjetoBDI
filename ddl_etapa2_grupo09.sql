@@ -52,7 +52,7 @@ CREATE TABLE dependente(
 CREATE TABLE telefoneFuncionario(
     matriculaFuncionario VARCHAR (20),
     numeroTelFuncionario VARCHAR(20),
-    PRIMARY KEY (matriculaFuncionario)
+    PRIMARY KEY (matriculaFuncionario, numeroTelFuncionario)
    
     
     
