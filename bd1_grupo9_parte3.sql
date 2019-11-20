@@ -398,7 +398,7 @@ WHERE (f.matricula_supervisor = d.matricula_funcionario) AND
     FROM DEPENDENTE d
     WHERE (TIMESTAMPDIFF(YEAR,d.data_nasc,CURDATE()) >= 18)
      
---13 6 Consulta não está rodando, ir consertando
+--13 Consulta não está rodando, ir consertando
     
 CREATE VIEW list As
 (
@@ -412,7 +412,16 @@ SELECT SUM(valor_total)
              from produto p)
        FROM Produto p)
      
---14
+--14 Consulta não está rodando, ir consertando
+     
+CREATE VIEW list_CNPJ AS
+SELECT f.cnpj
+FROM FORNECEDOR f, NOTA_FISCAL n, SOLICITACAO s
+WHERE n.identificador_solicitacao =s.identificador AND (n.data,year) = 2019 AND
+    SELECT MAX(SELECT SUM(valor_compra)
+              FROM SOLICITACAO s, Solicitacao a
+              GROUP BY valor_compra
+              HAVING s.cnpj_fornecedor = a.cnpj_fornecedor)
      
      
 -- 15 Consulta rodando - Falta testar com dados
