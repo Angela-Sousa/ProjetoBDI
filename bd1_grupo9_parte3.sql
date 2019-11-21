@@ -359,7 +359,12 @@ SELECT i.desconto
 FROM ITEM i
 WHERE i.desconto BETWEEN 0.05 AND 0.10
 
--- 3
+-- 3 Consulta rodando - Falta testar com dados
+
+CREATE VIEW ListaCompras AS
+SELECT c.nome AS nomeCliente, c.cpf, f.nome
+FROM CLIENTE c, FILIAL f, ORDEM_COMPRA o
+WHERE c.cpf = o.cpf_cliente AND f.codigo_identificacao = o.codigo_filial
 
 -- 4 Consulta rodando - Falta testar com dados
 
@@ -384,8 +389,22 @@ WHERE c.nome = "Jardim" AND m.nome= "SempreVerde"
     WHERE max(p.margem_lucro));
 
 --7
---8
---9
+--8 Consulta rodando - Falta testar com dados
+
+create view ListaFiliais AS
+SELECT f.nome as nomeF, i.nome
+from FUNCIONARIO f, FILIAL i
+WHERE f.matricula = i.gerente
+         
+--9 Consulta rodando - Falta testar com dados
+
+SELECT c.numero_caixa
+FROM CAIXA c, REALIZA_MANUTENCAO r, EQUIPAMENTO e
+WHERE c.numero_caixa = e.numero_caixa AND e.identificador = r.identificador_equipamento
+    AND (SELECT count(*)
+         FROM  REALIZA_MANUTENCAO r, EQUIPAMENTO e
+         WHERE e.identificador = r.identificador_equipamento) < 2
+         
 --10
 --11
 
@@ -397,6 +416,12 @@ WHERE (f.matricula_supervisor = d.matricula_funcionario) AND
     (SELECT *
     FROM DEPENDENTE d
     WHERE (TIMESTAMPDIFF(YEAR,d.data_nasc,CURDATE()) >= 18)
+     
+     
+-- ( ESSE SELECT TRUNC VIMOS NA INTERNET QUE PODE AJUDAR)     
+--SELECT trunc((months_between(sysdate, to_date(d.data_nasc,'dd/mm/yyyy')))/12) AS idade
+--FROM DEPENDENTE d
+
      
 --13 Consulta não está rodando, ir consertando
     
